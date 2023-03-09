@@ -21,8 +21,5 @@ $yarn install
 #### 3️⃣ Start the dev mode
 
 ```zsh
-# Development mode with auto refresh
-# and compilation on file save
 $yarn start
 ```
-

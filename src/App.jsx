@@ -8,7 +8,7 @@ import { callMsGraph } from './graph'
 import { ProfileData } from './components/ProfileData'
 import { AccountData } from './components/AccountData'
 import { useCookies } from 'react-cookie'
-
+import { useIsAuthenticated } from '@azure/msal-react'
 
 
 const ProfileContent = () => {
@@ -60,9 +60,16 @@ const MainContent = () => {
 }
 
 export default function App() {
+    const isAuthenticated = useIsAuthenticated()
+
+    const handleClickisAuthenticated = () => {
+        console.log('isAuthenticated >> ', isAuthenticated)
+    }
+
     return (
         <PageLayout>
             <MainContent />
+            <button onClick={handleClickisAuthenticated}>isAuthenticated()</button>
         </PageLayout>
     )
 }

@@ -9,7 +9,7 @@ export const ProfileData = (props) => {
             <p></p>
             <p><strong>Id: </strong> {props.graphData.id}</p>
             <p><strong>Language: </strong> {props.graphData.preferredLanguage}</p>
-            <p>...check jwt.ms before finish the workshop.</p>
+            <p>...check token @ jwt.ms at the end of the workshop.</p>
         </div>
     )
 }

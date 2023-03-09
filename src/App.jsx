@@ -1,20 +1,17 @@
 import React, { useState } from 'react'
 import './styles/App.css'
 import { PageLayout } from './components/PageLayout'
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
+import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal, useIsAuthenticated } from '@azure/msal-react';
 import Button from 'react-bootstrap/Button'
 import { loginRequest } from './authConfig'
 import { callMsGraph } from './graph'
 import { ProfileData } from './components/ProfileData'
 import { AccountData } from './components/AccountData'
-import { useCookies } from 'react-cookie'
-import { useIsAuthenticated } from '@azure/msal-react'
 
 
 const ProfileContent = () => {
     const { instance, accounts } = useMsal()
     const [graphData, setGraphData] = useState(null)
-    const [cookies, setCookie] = useCookies(['name'])
 
     function RequestProfileData() {
         instance
@@ -23,8 +20,7 @@ const ProfileContent = () => {
                 account: accounts[0],
             })
             .then((response) => {
-                setCookie('accessToken', response.accessToken, { path: '/' })
-                console.log('response.accessToken >> ', response.accessToken)
+                console.log('response @ instance.acquireTokenSilent >> ', response.accessToken)
                 callMsGraph(response.accessToken).then((response) => setGraphData(response));
             });
     }
@@ -37,7 +33,7 @@ const ProfileContent = () => {
                 <ProfileData graphData={graphData} />
             </>) : (
                 <Button variant="secondary" onClick={RequestProfileData}>
-                    Request Profile Information
+                    Request Profile Inform ation
                 </Button>
             )}
         </>
@@ -62,14 +58,14 @@ const MainContent = () => {
 export default function App() {
     const isAuthenticated = useIsAuthenticated()
 
-    const handleClickisAuthenticated = () => {
-        console.log('isAuthenticated >> ', isAuthenticated)
+    const handleClickIsAuthenticated = () => {
+        console.log('isAuthenticated', isAuthenticated)
     }
 
     return (
         <PageLayout>
             <MainContent />
-            <button onClick={handleClickisAuthenticated}>isAuthenticated()</button>
+            <button onClick={handleClickIsAuthenticated}>isAuthenticated</button>
         </PageLayout>
     )
 }

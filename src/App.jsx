@@ -20,7 +20,7 @@ const ProfileContent = () => {
                 account: accounts[0],
             })
             .then((response) => {
-                console.log('response @ instance.acquireTokenSilent >> ', response.accessToken)
+                console.log('token @ response >> ', response.accessToken)
                 callMsGraph(response.accessToken).then((response) => setGraphData(response));
             });
     }

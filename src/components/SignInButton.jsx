@@ -8,21 +8,22 @@ import Dropdown from "react-bootstrap/Dropdown"
 export const SignInButton = () => {
     const { instance } = useMsal();
 
-    const handleLogin = (loginType) => {
-        if (loginType === "popup") {
-            instance.loginPopup(loginRequest).catch(e => {
-                console.log(e);
-            });
-        } else if (loginType === "redirect") {
-            instance.loginRedirect(loginRequest).catch(e => {
-                console.log(e);
-            });
-        }
+    const handleLoginPopup = () => {
+        instance.loginPopup(loginRequest).catch(e => {
+            console.log(e)
+        })
     }
+
+    const handleLoginRedirect = () => {
+        instance.loginRedirect(loginRequest).catch(e => {
+            console.log(e)
+        })
+    }
+
     return (
         <DropdownButton variant="secondary" className="ml-auto" drop="start" title="Sign In">
-            <Dropdown.Item as="button" onClick={() => handleLogin("popup")}>Sign in using Popup</Dropdown.Item>
-            <Dropdown.Item as="button" onClick={() => handleLogin("redirect")}>Sign in using Redirect</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={() => handleLoginPopup()}>Sign in using Popup</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={() => handleLoginRedirect()}>Sign in using Redirect</Dropdown.Item>
         </DropdownButton>
     )
 }
